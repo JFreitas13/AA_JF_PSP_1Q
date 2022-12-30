@@ -32,33 +32,33 @@ public class DownloadTask extends Task<Integer> {
 
         URLConnection urlConnection = url.openConnection();
         double fileSize = urlConnection.getContentLength();
-        double fileSizeMb = fileSize / 1045876;
-        // Descomentar para limitar el tamaño de la descarga.
-        /*double megaSize = fileSize / 1048576;
-        if (megaSize > 10){
-            logger.trace("Máximo tamaño de fichero alcanzado");
-            throw new Exception("Max. size");
-        }*/
+        double fileSizeMb = fileSize / 1045876; //para saber el tamaño en MB del archivo
 
+        //guardamos en disco
         BufferedInputStream in = new BufferedInputStream(url.openStream());
+
+        //archivo donde se guarda la descarga
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         byte dataBuffer[] = new byte[1024];
         int bytesRead;
         int totalRead = 0;
         double downloadProgress = 0;
 
+        //Medir tiempo de descarga
         StopWatch watch = new StopWatch();
         watch.start();
 
         while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
             downloadProgress = ((double) totalRead / fileSize);
-            double totalSizeReadMb = totalRead / 1048576;
+            double totalSizeReadMb = totalRead / 1048576; //cantidad de MB leídos y descargados
             updateProgress(downloadProgress, 1);
             updateMessage(Math.round(downloadProgress * 100) + " %\t\t\t" + Math.round(watch.getTime()/1000) + "seg.\t\t\t" + Math.round(totalSizeReadMb * 100) / 100d + "MB / " + (Math.round(fileSizeMb) * 100) / 100d + "MB");
             // Comentar para acelerar la descarga.
             Thread.sleep(1);
 
             fileOutputStream.write(dataBuffer, 0, bytesRead);
+
+            //actualizar el total leído
             totalRead += bytesRead;
 
             if (isCancelled()) {
