@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
+import javafx.stage.DirectoryChooser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class DownloadController implements Initializable {
 
     public TextField tfUrl;
@@ -26,7 +27,9 @@ public class DownloadController implements Initializable {
     public ProgressBar pbProgress;
     private String urlText;
     private DownloadTask downloadTask;
-
+    private DirectoryChooser directoryChooser = new DirectoryChooser();
+    private String route;
+    //private File file;
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
     public DownloadController(String urlText) {
@@ -36,13 +39,24 @@ public class DownloadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tfUrl.setText(urlText);
-        // Quitar comentario para descarga desde fichero.
-        /*try {
-            String fileName = this.urlText.substring(this.urlText.lastIndexOf("/") + 1);
-            File file = new File(fileName);
-            file.createNewFile();
-            downloadTask = new DownloadTask(urlText, file);
+        //Directorio del usuario y carpeta de descargas
+        String downloadsFolder = System.getProperty("user.home") + File.separator + "Downloads" + File.separator;
+
+        //Pintamos por defecto el directorio anterior
+        tfUrl.setText(downloadsFolder);
+        directoryChooser.setInitialDirectory(new File(downloadsFolder));
+    }
+
+    @FXML
+    public void start(ActionEvent event) {
+        try {
+            //cogemos el directorio del label
+            File downloadFile = new File(tfUrl.getText(), urlText.substring(urlText.lastIndexOf("/") + 1));
+
+            if (downloadFile == null) {
+                return;
+            }
+            downloadTask = new DownloadTask(urlText, downloadFile);
 
             pbProgress.progressProperty().unbind();
             pbProgress.progressProperty().bind(downloadTask.progressProperty());
@@ -66,54 +80,15 @@ public class DownloadController implements Initializable {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        }*/
-    }
-
-    @FXML
-    public void start(ActionEvent event) {
-        try {
-
-            // Comentar para descarga desde fichero.
-            FileChooser fileChooser = new FileChooser();
-            File file = fileChooser.showSaveDialog(tfUrl.getScene().getWindow());
-            if (file == null)
-                return;
-
-            downloadTask = new DownloadTask(urlText, file);
-
-            pbProgress.progressProperty().unbind();
-            pbProgress.progressProperty().bind(downloadTask.progressProperty());
-
-            downloadTask.stateProperty().addListener((observableValue, oldState, newState) -> {
-                System.out.println(observableValue.toString());
-                if (newState == Worker.State.SUCCEEDED) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("La descarga ha terminado");
-                    alert.show();
-                } // Quitar comentario para limitar el tamaño de la descarga.
-                /*
-                 * else if (newState == Worker.State.FAILED){
-                 * Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                 * alert.
-                 * setContentText("El tamaño de la descarga es superior al límite de 10 MB.");
-                 * alert.show();
-                 * }
-                 */
-            });
-
-            downloadTask.messageProperty()
-                    .addListener((observableValue, oldValue, newValue) -> lbStatus.setText(newValue));
-
-            new Thread(downloadTask).start();
-        } catch (MalformedURLException murle) {
-            murle.printStackTrace();
-            logger.error("URL mal formada", murle.fillInStackTrace());
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
     }
 
+    public void changeRoute(ActionEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser(); //Clase para buscar y selecionar un directorio
+        File file = directoryChooser.showDialog(tfUrl.getScene().getWindow()); //Creamos un fichero con la ruta seleccionado en el explorador de Windows
+        route = file.getPath(); //Ingresamos la ruta dentro del String
+        tfUrl.setText(route); //devolvemos el string al label
+    }
     @FXML
     public void stop(ActionEvent event) {
         stop();

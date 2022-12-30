@@ -4,22 +4,23 @@ import com.svalero.multidescarga.util.R;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AppController {
 
+    //Elementos de la interface a los que accederemos
     public TextField tfUrl;
     public Button btDownload;
     public TabPane tpDownloads;
-
     private Map<String, DownloadController> allDownloads;
 
     public AppController() {
@@ -33,15 +34,6 @@ public class AppController {
         tfUrl.requestFocus();
         launch(urlText);
     }
-
-    // Quitar comentario para descarga desde fichero.
-    /*@FXML
-    public void launchFileDownload(ActionEvent event) {
-        String urlText = tfUrl.getText();
-        tfUrl.clear();
-        tfUrl.requestFocus();
-        readDLC();
-    }*/
 
     private void launch(String url) {
         try {
@@ -67,30 +59,45 @@ public class AppController {
             downloadController.stop();
     }
 
-    @FXML
-    public void readDLC() {
-        // Quitar comentario para descarga desde fichero.
-        /*
-        try {
-            File dlcFile = new File("dlc.txt.txt");
-            Scanner reader = new Scanner(dlcFile);
-            while (reader.hasNextLine()) {
-                String data = reader.nextLine();
-                System.out.println(data);
-                launch(data);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Se ha producido un error");
-            e.printStackTrace();
+
+    public void logFile(ActionEvent actionEvent) {
+
+        if(Desktop.isDesktopSupported()) {
+            try {
+                File file = new File( "multidownload.log");
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+                } catch (IOException ioe){
+                    System.out.println("Ha ocurrido un error.");
+                    System.out.println("No soportado");
+                }
+
+            } else {
+                System.out.println("No soportado.");
         }
-        */
-
-        // Pedir el fichero al usuario (FileChooser)
-
-        // Leo el fichero y cargo cada linea en un List (clasmvne Files)
-
-        // Para cada linea, llamar al método launchDownload
     }
+
+//    public void logFile(ActionEvent actionEvent) throws IOException, IllegalArgumentException {
+//        if (Desktop.isDesktopSupported()) {
+//            try {
+//                File file = new File("log" + File.separator + "fxdownloader.log");
+//                Desktop.getDesktop().open(file);
+//            } catch (IOException ioe) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setContentText("Ha habido un error.");
+//                alert.show();
+//            } catch (IllegalArgumentException iae){
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setContentText("Ha habido un error al abrir el log. Es posible que no exista.");
+//                alert.show();
+//            }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setContentText("No soportado.");
+//            alert.show();
+//        }
+//
+//    }
+
 }
 

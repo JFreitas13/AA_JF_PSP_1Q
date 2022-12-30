@@ -18,7 +18,7 @@ public class DownloadTask extends Task<Integer> {
     private File file;
     private String message;
 
-    private static final Logger logger = LogManager.getLogger(DownloadController.class);
+    private static final Logger logger = (Logger) LogManager.getLogger(DownloadController.class);
 
     public DownloadTask(String urlText, File file) throws MalformedURLException {
         this.url = new URL(urlText);

@@ -17,10 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        // Comentar para descarga desde fichero.
         loader.setLocation(R.getUI("multidownload.fxml"));
-        // Quitar comentario para descarga desde fichero.
-        //loader.setLocation(R.getUI("multidownload-2.fxml"));
         loader.setController(new AppController());
         ScrollPane vbox = loader.load();
 
