@@ -2,6 +2,7 @@ package com.svalero.multidescarga.task;
 
 import com.svalero.multidescarga.controller.DownloadController;
 import javafx.concurrent.Task;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,7 @@ import java.net.URLConnection;
 public class DownloadTask extends Task<Integer> {
     private URL url;
     private File file;
+    private String message;
 
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
@@ -30,6 +32,7 @@ public class DownloadTask extends Task<Integer> {
 
         URLConnection urlConnection = url.openConnection();
         double fileSize = urlConnection.getContentLength();
+        double fileSizeMb = fileSize / 1045876;
         // Descomentar para limitar el tamaño de la descarga.
         /*double megaSize = fileSize / 1048576;
         if (megaSize > 10){
@@ -44,10 +47,14 @@ public class DownloadTask extends Task<Integer> {
         int totalRead = 0;
         double downloadProgress = 0;
 
+        StopWatch watch = new StopWatch();
+        watch.start();
+
         while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
             downloadProgress = ((double) totalRead / fileSize);
+            double totalSizeReadMb = totalRead / 1048576;
             updateProgress(downloadProgress, 1);
-            updateMessage(downloadProgress * 100 + " %");
+            updateMessage(Math.round(downloadProgress * 100) + " %\t\t\t" + Math.round(watch.getTime()/1000) + "seg.\t\t\t" + Math.round(totalSizeReadMb * 100) / 100d + "MB / " + (Math.round(fileSizeMb) * 100) / 100d + "MB");
             // Comentar para acelerar la descarga.
             Thread.sleep(1);
 

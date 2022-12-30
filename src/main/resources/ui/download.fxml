@@ -29,7 +29,7 @@
          </children>
       </HBox>
       <ProgressBar fx:id="pbProgress" prefHeight="22.0" prefWidth="324.0" progress="0.0" />
-      <Label fx:id="lbStatus" prefHeight="17.0" prefWidth="325.0" text="Progreso" />
+      <Label fx:id="lbStatus" prefHeight="17.0" prefWidth="325.0" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

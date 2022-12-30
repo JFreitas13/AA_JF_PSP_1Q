@@ -34,6 +34,15 @@ public class AppController {
         launch(urlText);
     }
 
+    // Quitar comentario para descarga desde fichero.
+    /*@FXML
+    public void launchFileDownload(ActionEvent event) {
+        String urlText = tfUrl.getText();
+        tfUrl.clear();
+        tfUrl.requestFocus();
+        readDLC();
+    }*/
+
     private void launch(String url) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -63,7 +72,7 @@ public class AppController {
         // Quitar comentario para descarga desde fichero.
         /*
         try {
-            File dlcFile = new File("dlc.txt");
+            File dlcFile = new File("dlc.txt.txt");
             Scanner reader = new Scanner(dlcFile);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
