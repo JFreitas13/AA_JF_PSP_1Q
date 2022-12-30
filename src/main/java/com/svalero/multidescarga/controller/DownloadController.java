@@ -29,7 +29,6 @@ public class DownloadController implements Initializable {
     private DownloadTask downloadTask;
     private DirectoryChooser directoryChooser = new DirectoryChooser();
     private String route;
-    //private File file;
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
     public DownloadController(String urlText) {
@@ -85,7 +84,7 @@ public class DownloadController implements Initializable {
 
     public void changeRoute(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser(); //Clase para buscar y selecionar un directorio
-        File file = directoryChooser.showDialog(tfUrl.getScene().getWindow()); //Creamos un fichero con la ruta seleccionado en el explorador de Windows
+        File file = directoryChooser.showDialog(tfUrl.getScene().getWindow()); //Creamos un fichero con la ruta del directorio seleccionado
         route = file.getPath(); //Ingresamos la ruta dentro del String
         tfUrl.setText(route); //devolvemos el string al label
     }

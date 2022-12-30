@@ -59,7 +59,6 @@ public class AppController {
             downloadController.stop();
     }
 
-
     public void logFile(ActionEvent actionEvent) {
 
         if(Desktop.isDesktopSupported()) {
@@ -69,35 +68,10 @@ public class AppController {
                 desktop.open(file);
                 } catch (IOException ioe){
                     System.out.println("Ha ocurrido un error.");
-                    System.out.println("No soportado");
                 }
-
             } else {
                 System.out.println("No soportado.");
         }
     }
-
-//    public void logFile(ActionEvent actionEvent) throws IOException, IllegalArgumentException {
-//        if (Desktop.isDesktopSupported()) {
-//            try {
-//                File file = new File("log" + File.separator + "fxdownloader.log");
-//                Desktop.getDesktop().open(file);
-//            } catch (IOException ioe) {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setContentText("Ha habido un error.");
-//                alert.show();
-//            } catch (IllegalArgumentException iae){
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setContentText("Ha habido un error al abrir el log. Es posible que no exista.");
-//                alert.show();
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setContentText("No soportado.");
-//            alert.show();
-//        }
-//
-//    }
-
 }
 
