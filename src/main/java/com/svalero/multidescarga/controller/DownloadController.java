@@ -46,6 +46,7 @@ public class DownloadController implements Initializable {
         directoryChooser.setInitialDirectory(new File(downloadsFolder));
     }
 
+    //Metodo para iniciar download
     @FXML
     public void start(ActionEvent event) {
         try {
@@ -82,12 +83,15 @@ public class DownloadController implements Initializable {
         }
     }
 
+    //Metodo para cambiar ruta donde se guarda el download
     public void changeRoute(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser(); //Clase para buscar y selecionar un directorio
         File file = directoryChooser.showDialog(tfUrl.getScene().getWindow()); //Creamos un fichero con la ruta del directorio seleccionado
         route = file.getPath(); //Ingresamos la ruta dentro del String
         tfUrl.setText(route); //devolvemos el string al label
     }
+
+    //Metodo para parar el Download
     @FXML
     public void stop(ActionEvent event) {
         stop();
@@ -98,6 +102,7 @@ public class DownloadController implements Initializable {
             downloadTask.cancel();
     }
 
+    //Metodo para coger la url de la caja de texto
     public String getUrlText() {
         return urlText;
     }

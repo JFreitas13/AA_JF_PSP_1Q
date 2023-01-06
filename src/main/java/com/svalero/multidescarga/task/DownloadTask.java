@@ -17,8 +17,9 @@ public class DownloadTask extends Task<Integer> {
     private URL url;
     private File file;
     private String message;
-    private static final Logger logger = (Logger) LogManager.getLogger(DownloadController.class);
+    private static final Logger logger = (Logger) LogManager.getLogger(DownloadController.class); //log
 
+    //constructor
     public DownloadTask(String urlText, File file) throws MalformedURLException {
         this.url = new URL(urlText);
         this.file = file;
@@ -26,7 +27,7 @@ public class DownloadTask extends Task<Integer> {
 
     @Override
     protected Integer call() throws Exception {
-        logger.trace("Descarga " + url.toString() + " iniciada");
+        logger.trace("Descarga " + url.toString() + " iniciada.");
         updateMessage("Conectando con el servidor . . .");
 
         URLConnection urlConnection = url.openConnection();

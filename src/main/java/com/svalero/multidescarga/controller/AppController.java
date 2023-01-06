@@ -18,10 +18,10 @@ import java.util.Map;
 public class AppController {
 
     //Elementos de la interface a los que accederemos
-    public TextField tfUrl;
-    public Button btDownload;
-    public TabPane tpDownloads;
-    private Map<String, DownloadController> allDownloads;
+    public TextField tfUrl; //caja de texto
+    public Button btDownload; //boton download
+    public TabPane tpDownloads; //panel de descargas para que se añadan pestañas
+    private Map<String, DownloadController> allDownloads; //mapa donde se guardaran todas las descargas
 
     public AppController() {
         allDownloads = new HashMap<>();
@@ -35,6 +35,7 @@ public class AppController {
         launch(urlText);
     }
 
+    //metodos de descarga
     private void launch(String url) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -53,12 +54,14 @@ public class AppController {
         }
     }
 
+    //cancelar todos los downloads
     @FXML
     public void stopAllDownloads() {
         for (DownloadController downloadController : allDownloads.values())
             downloadController.stop();
     }
 
+    //creación txt con registro log
     public void logFile(ActionEvent actionEvent) {
 
         if(Desktop.isDesktopSupported()) {
