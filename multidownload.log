@@ -292,3 +292,6 @@ java.net.MalformedURLException: no protocol: ggg
 	at java.lang.Thread.run(Thread.java:833) [?:?]
 19:26:41.959 [Thread-3] TRACE com.svalero.multidescarga.controller.DownloadController - Descarga http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4 iniciada
 19:26:46.729 [Thread-3] TRACE com.svalero.multidescarga.controller.DownloadController - Descarga http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4 finalizada
+10:36:06.870 [JavaFX Application Thread] INFO  com.svalero.multidescarga.controller.DownloadController - Descarga http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 creada
+10:39:04.955 [JavaFX Application Thread] INFO  com.svalero.multidescarga.controller.DownloadController - Descarga http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 creada
+10:39:08.916 [Thread-3] TRACE com.svalero.multidescarga.controller.DownloadController - Descarga http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 iniciada
