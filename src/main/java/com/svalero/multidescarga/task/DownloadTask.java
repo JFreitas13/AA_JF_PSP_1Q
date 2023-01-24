@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Duration;
+import java.time.Instant;
 
 public class DownloadTask extends Task<Integer> {
     private URL url;
@@ -43,6 +45,9 @@ public class DownloadTask extends Task<Integer> {
         int bytesRead;
         int totalRead = 0;
         double downloadProgress = 0;
+        Instant start = Instant.now(); //libreria de java para calcular el tiempo de la descarga
+        Instant current; //tiempo de descarga
+        float elapsedTime; //tiempo calculado
 
         //Medir tiempo de descarga
         StopWatch watch = new StopWatch();
@@ -52,7 +57,10 @@ public class DownloadTask extends Task<Integer> {
             downloadProgress = ((double) totalRead / fileSize);
             double totalSizeReadMb = totalRead / 1048576; //cantidad de MB leídos y descargados
             updateProgress(downloadProgress, 1);
-            updateMessage(Math.round(downloadProgress * 100) + " %\t\t\t" + Math.round(watch.getTime()/1000) + "seg.\t\t\t" + Math.round(totalSizeReadMb * 100) / 100d + "MB / " + (Math.round(fileSizeMb) * 100) / 100d + "MB");
+            //PAra la libreria java
+            current = Instant.now(); //Calcular el tiempo actual por cada kilobytes que vamos descargando en cada interaccion
+            elapsedTime = Duration.between(start, current).toSeconds();
+            updateMessage(Math.round(downloadProgress * 100) + " %\t\t" + Math.round(watch.getTime()/1000) + "seg.\t\t" + Math.round(totalSizeReadMb * 100) / 100d + "MB / " + (Math.round(fileSizeMb) * 100) / 100d + "MB\t\t" + Math.round(fileSizeMb/elapsedTime) + "MB/s");
             // Comentar para acelerar la descarga.
             Thread.sleep(1);
 

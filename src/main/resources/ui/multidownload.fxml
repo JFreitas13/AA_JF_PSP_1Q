@@ -22,14 +22,19 @@
                         <Insets bottom="15.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btStopAllDownloads" mnemonicParsing="false" onAction="#stopAllDownloads" prefHeight="24.0" prefWidth="238.0" text="Cancelar todas las descargas">
+                  <Button fx:id="btDlc" mnemonicParsing="false" onAction="#launchDLCDownload" text="Descargar desde DLC">
                      <HBox.margin>
-                        <Insets bottom="15.0" left="30.0" top="15.0" />
+                        <Insets bottom="15.0" left="20.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btStopAllDownloads" mnemonicParsing="false" onAction="#stopAllDownloads" text="Cancelar todas las descargas">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="20.0" top="15.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="btlogFile" mnemonicParsing="false" onAction="#logFile" text="Registro de Descargas" textFill="#d07717">
                      <HBox.margin>
-                        <Insets bottom="15.0" left="30.0" top="15.0" />
+                        <Insets bottom="15.0" left="20.0" top="15.0" />
                      </HBox.margin>
                   </Button>
                </children>

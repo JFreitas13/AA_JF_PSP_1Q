@@ -38,8 +38,8 @@ public class DownloadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Directorio del usuario y carpeta de descargas
-        String downloadsFolder = System.getProperty("user.home") + File.separator + "Downloads" + File.separator;
+        //Directorio del usuario y carpeta por defecto del usuario
+        String downloadsFolder = System.getProperty("user.dir") + File.separator + "Downloads" + File.separator;
 
         //Pintamos por defecto el directorio anterior
         tfUrl.setText(downloadsFolder);
