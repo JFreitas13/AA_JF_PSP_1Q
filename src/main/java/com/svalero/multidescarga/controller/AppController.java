@@ -23,6 +23,7 @@ public class AppController {
     //Elementos de la interface a los que accederemos
     public TextField tfUrl; //caja de texto
     public Button btDownload; //boton download
+    public TextField tfTime; //caja texto para indicar tiempo para programar la descarga
     public TabPane tpDownloads; //panel de descargas para que se añadan pestañas
     private Map<String, DownloadController> allDownloads; //mapa donde se guardaran todas las descargas
 
@@ -54,8 +55,13 @@ public class AppController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(R.getUI("download.fxml"));
+            String timeSchedule = tfTime.getText(); //cogemos el valor indicado
+            //Valor por defecto si el usuario no indica
+            if (timeSchedule.length() == 0)
+                timeSchedule = "0";
+            int timeDownload = Integer.parseInt(timeSchedule);
 
-            DownloadController downloadController = new DownloadController(url);
+            DownloadController downloadController = new DownloadController(url, timeDownload);
             loader.setController(downloadController);
             VBox downloadBox = loader.load();
 

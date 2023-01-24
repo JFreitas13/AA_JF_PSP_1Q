@@ -5,10 +5,7 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,17 +20,20 @@ import java.util.ResourceBundle;
 public class DownloadController implements Initializable {
 
     public TextField tfUrl;
+
     public Label lbStatus;
     public ProgressBar pbProgress;
     private String urlText;
     private DownloadTask downloadTask;
     private DirectoryChooser directoryChooser = new DirectoryChooser();
     private String route;
+    private int timeOut;
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
-    public DownloadController(String urlText) {
+    public DownloadController(String urlText, int timeOut) {
         logger.info("Descarga " + urlText + " creada");
         this.urlText = urlText;
+        this.timeOut = timeOut;
     }
 
     @Override
@@ -53,9 +53,7 @@ public class DownloadController implements Initializable {
             //cogemos el directorio del label
             File downloadFile = new File(tfUrl.getText(), urlText.substring(urlText.lastIndexOf("/") + 1));
 
-            if (downloadFile == null) {
-                return;
-            }
+
             downloadTask = new DownloadTask(urlText, downloadFile);
 
             pbProgress.progressProperty().unbind();
@@ -73,7 +71,18 @@ public class DownloadController implements Initializable {
             downloadTask.messageProperty()
                     .addListener((observableValue, oldValue, newValue) -> lbStatus.setText(newValue));
 
-            new Thread(downloadTask).start();
+            //Timer indicado para inicializar la descarga
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            new Thread(downloadTask).start(); //Se crea el Thread con la tarea de descarga
+                        }
+                    },
+                    1000*this.timeOut
+            );
+
+
         } catch (MalformedURLException murle) {
             murle.printStackTrace();
             logger.error("URL mal formada", murle.fillInStackTrace());
@@ -81,7 +90,10 @@ public class DownloadController implements Initializable {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+
     }
+
 
     //Metodo para cambiar ruta donde se guarda el download
     public void changeRoute(ActionEvent event) {
