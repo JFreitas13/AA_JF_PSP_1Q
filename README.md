@@ -17,15 +17,15 @@ registro y podrá consultarse desde el interfaz de usuario
 - [x] Programar el comienzo de una descarga para un momento determinado
 - [x] La aplicación podrá leer listas de enlaces de un fichero de texto y encolará las
 descargas
-- [x] Posibilidad de configurar número máximo de descargas simultáneas
-- [x] Al cancelar la descarga, opcionalmente para el usuario, se podrá eliminar el fichero
+- [ ] Posibilidad de configurar número máximo de descargas simultáneas
+- [ ] Al cancelar la descarga, opcionalmente para el usuario, se podrá eliminar el fichero
 que se estaba descargando o se había descargado
-- [x] Al iniciar la aplicación se mostrará un SplashScreen
-- [x] Posibilidad de reanudar descargas canceladas previamente
+- [ ] Al iniciar la aplicación se mostrará un SplashScreen
+- [ ] Posibilidad de reanudar descargas canceladas previamente
 - [x] Si el usuario asi lo selecciona, que elija la ubicación de la descarga en el mismo
 momento en que ésta inicia, saltándose entonces la que haya configurada en la
 aplicación
-- [x] En el caso de que haya límite de descargas y éste haya sido superado, que el usuario
+- [ ] En el caso de que haya límite de descargas y éste haya sido superado, que el usuario
 pueda lanzar más descargas y éstas queden encoladas esperando el momento en que
 puedan ser lanzadas
 - [x] Mostrar la velocidad de descarga (MB/s) en todo momento
